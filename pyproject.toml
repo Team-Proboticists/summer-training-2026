@@ -1,0 +1,12 @@
+[project]
+name = "summer-training-2026"
+version = "0.1.0"
+description = "Autonomous 2026 summer training"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    # cv-related
+    "opencv-python",
+    "numpy",
+    "matplotlib",
+]
