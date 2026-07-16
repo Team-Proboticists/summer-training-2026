@@ -1,0 +1,36 @@
+services:
+  app:
+    build: .
+    volumes:
+      - .:/workspace
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      # --- NVIDIA GPU ACCELERATION (Default) ---
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      # --- CPU SOFTWARE RENDERING (Fallback) ---
+      # If Gazebo crashes or fails to start, uncomment the line below to force software rendering:
+      # - LIBGL_ALWAYS_SOFTWARE=1
+    network_mode: host
+    ipc: host
+    # --- INTEL / AMD GPU ACCELERATION (Mounts the host graphics card devices) ---
+    devices:
+      - /dev/dri:/dev/dri
+    # --- NVIDIA GPU ACCESS (Commented out by default for universal compatibility) ---
+    # To enable NVIDIA hardware acceleration, uncomment the block below:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+    working_dir: /workspace
+
+    stdin_open: true
+    tty: true
+    command: zsh
+
+

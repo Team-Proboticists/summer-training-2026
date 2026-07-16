@@ -1,0 +1,14 @@
+# Docker Compose Override for NVIDIA GPU Acceleration
+# Use this with: docker compose -f docker-compose.yml -f docker-compose.nvidia.yml up -d
+services:
+  app:
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
